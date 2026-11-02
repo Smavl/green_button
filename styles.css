@@ -1,0 +1,17 @@
+.gb-badge {
+  display: inline-flex !important;
+  align-items: center;
+  font-weight: 600;
+}
+.gb-enabled {
+  color: #fff !important;
+  background-color: var(--button-primary-bgColor-rest, #1f883d) !important;
+  border-color: var(--button-primary-borderColor-rest, rgba(31, 35, 40, 0.15)) !important;
+}
+.gb-enabled:hover {
+  background-color: var(--button-primary-bgColor-hover, #1a7f37) !important;
+}
+.gb-disabled { color: var(--fgColor-muted, #59636e) !important; }
+.gb-unknown { color: var(--fgColor-muted, #59636e) !important; }
+.gb-signed-out { color: var(--fgColor-muted, #59636e) !important; }
+
