@@ -78,7 +78,7 @@
     if (queued) return;
     queued = true;
     requestAnimationFrame(() => { queued = false; run(); });
-  }).observe(document.body, { childList: true, subtree: true });
+  }).observe(document.documentElement, { childList: true, subtree: true });
 
   browser.storage.onChanged.addListener(() => { skip = null; document.getElementById(ID)?.remove(); run(); });
   run();

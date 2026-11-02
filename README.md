@@ -26,3 +26,10 @@ repo), it loads the repo's `/security` page with your session and looks for the
 2. Click **Load Temporary Add-on…** and select `manifest.json`
 
 Package it with `npx web-ext build`.
+
+## Test
+
+Loads the extension into headless Firefox and checks real GitHub pages
+(needs `pip install selenium`; geckodriver is fetched automatically):
+
+    python test/firefox_test.py .
