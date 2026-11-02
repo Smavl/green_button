@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96">
+  <rect x="2" y="22" width="92" height="52" rx="10" fill="#1f883d" stroke="#1a7f37" stroke-width="2"/>
+  <g fill="#fff" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-weight="700" text-anchor="middle">
+    <text x="48" y="44" font-size="14">Report a</text>
+    <text x="48" y="62" font-size="13.5">vulnerability</text>
+  </g>
+</svg>
