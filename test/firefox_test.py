@@ -27,14 +27,14 @@ def check(url, expect):
     return ok
 
 r = [
-  check("https://github.com/calesthio/OpenMontage", "Report a vulnerability"),
+  check("https://github.com/python/cpython", "Report a vulnerability"),
   check("https://github.com/curl/curl", "No private reporting"),
   check("https://github.com/curl/curl/issues", None),
   check("https://github.com/settings/profile", None),
 ]
 # soft navigation: repo -> click Issues tab -> badge must disappear; back -> reappear
-d.get("https://github.com/calesthio/OpenMontage"); badge()
-d.find_element(By.CSS_SELECTOR, 'a[href$="/OpenMontage/issues"]').click()
+d.get("https://github.com/python/cpython"); badge()
+d.find_element(By.CSS_SELECTOR, 'a[href$="/cpython/issues"]').click()
 time.sleep(4); gone = not d.find_elements(By.ID, "gb-pvr-badge")
 d.back(); back = badge()
 print("PASS" if gone else "FAIL", "badge removed after soft nav to Issues")
