@@ -13,5 +13,4 @@
 }
 .gb-disabled { color: var(--fgColor-muted, #59636e) !important; }
 .gb-unknown { color: var(--fgColor-muted, #59636e) !important; }
-.gb-signed-out { color: var(--fgColor-muted, #59636e) !important; }
 

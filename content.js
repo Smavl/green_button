@@ -6,20 +6,27 @@
   const LABELS = {
     enabled: ["Report a vulnerability", "Private vulnerability reporting is enabled."],
     disabled: ["No private reporting", "Private vulnerability reporting is not enabled."],
-    "signed-out": ["Sign in to check PVR", "GitHub only shows the report button to signed-in users."],
     unknown: ["PVR: unknown", "Could not check private vulnerability reporting."],
   };
 
   const currentRepo = () => location.pathname.split("/").filter(Boolean).join("/");
 
+  // Official API first. It answers for public repos without a login, but is limited to
+  // 60 requests/hour per IP and returns 404 for private repos, so fall back to the page.
   async function fetchState(repo) {
+    try {
+      const res = await fetch(`https://api.github.com/repos/${repo}/private-vulnerability-reporting`, {
+        credentials: "omit",
+        headers: { Accept: "application/vnd.github+json" },
+      });
+      if (res.ok) return (await res.json()).enabled ? "enabled" : "disabled";
+    } catch {}
     try {
       const res = await fetch(`/${repo}/security`);
       if (res.status === 404) return "disabled";
       if (!res.ok) return "unknown";
       const doc = new DOMParser().parseFromString(await res.text(), "text/html");
-      if (doc.querySelector('a[href$="/security/advisories/new"]')) return "enabled";
-      return doc.querySelector('meta[name="user-login"]')?.content ? "disabled" : "signed-out";
+      return doc.querySelector('a[href$="/security/advisories/new"]') ? "enabled" : "disabled";
     } catch {
       return "unknown";
     }
@@ -61,9 +68,7 @@
     a.className = `btn btn-sm gb-badge gb-${state}`;
     a.textContent = text;
     a.title = title;
-    a.href = state === "enabled" ? `/${repo}/security/advisories/new`
-      : state === "signed-out" ? `/login?return_to=${encodeURIComponent(location.href)}`
-      : `/${repo}/security`;
+    a.href = `/${repo}/security${state === "enabled" ? "/advisories/new" : ""}`;
     (document.querySelector('[data-testid="repo-header-actions"]') || row).prepend(li);
   }
 
